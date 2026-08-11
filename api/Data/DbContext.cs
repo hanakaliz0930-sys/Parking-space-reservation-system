@@ -1,13 +1,12 @@
-using Microsoft.EntityFrameworkCore;
 using api.Entities;
+using Microsoft.EntityFrameworkCore;
 
 public class ParkingDataContext : DbContext
 {
     public DbSet<ParkingSpot> ParkingSpots { get; set; }
     public DbSet<Reservation> Reservations { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public ParkingDataContext(DbContextOptions<ParkingDataContext> options) : base(options)
     {
-        optionsBuilder.UseSqlite("Data Source=parking.db");
     }
 }
