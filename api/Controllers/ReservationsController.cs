@@ -36,5 +36,11 @@ public class ReservationsController : ControllerBase
             return reservation;
         }
         return BadRequest(ModelState);
-    } 
+    }
+    
+    [HttpGet("{parkingSpotId}")]
+    public List<Reservation> GetReservationsByParkingSpotId(int parkingSpotId)
+    {
+        return _context.Reservations.Where(r => r.ParkingSpotId == parkingSpotId).ToList();
+    }
 }
