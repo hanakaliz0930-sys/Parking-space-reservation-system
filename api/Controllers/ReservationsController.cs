@@ -28,7 +28,7 @@ public class ReservationsController : ControllerBase
                 ModelState.AddModelError("Reservation", "The reservation time overlaps with an existing reservation.");
            }
         }
-        if(reservation.StartTime >= reservation.EndTime)
+        if(reservation.StartTime >= reservation.EndTime || reservation.StartTime < DateTime.Now)
         {
             ModelState.AddModelError("Invalid time", "The Reservation time is invalid.");
         }
