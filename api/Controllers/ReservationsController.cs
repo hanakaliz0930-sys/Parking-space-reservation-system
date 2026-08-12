@@ -28,14 +28,21 @@ public class ReservationsController : ControllerBase
                 ModelState.AddModelError("Reservation", "The reservation time overlaps with an existing reservation.");
            }
         }
-        
-        if (ModelState.IsValid)
+        if(reservation.StartTime >= reservation.EndTime)
         {
-            _context.Reservations.Add(reservation);
+            ModelState.AddModelError("Invalid time", "The Reservation time is invalid.");
+        }
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        else
+        {
+             _context.Reservations.Add(reservation);
             _context.SaveChanges();
             return reservation;
         }
-        return BadRequest(ModelState);
+        
     }
     
     [HttpGet("{parkingSpotId}")]
