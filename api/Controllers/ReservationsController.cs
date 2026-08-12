@@ -17,10 +17,10 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     public ActionResult<Reservation> createReservation (Reservation reservation)
     {
+        var ParkingSpot = _context.ParkingSpots.Where(r => r.Id == reservation.ParkingSpotId).FirstOrDefault();
         var existingReservations = _context.Reservations
             .Where(r => r.ParkingSpotId == reservation.ParkingSpotId)
             .ToList();
-
         foreach (var existingReservation in existingReservations)
         {
            if(!(reservation.EndTime < existingReservation.StartTime) && !(existingReservation.EndTime < reservation.StartTime))
@@ -31,6 +31,10 @@ public class ReservationsController : ControllerBase
         if(reservation.StartTime >= reservation.EndTime)
         {
             ModelState.AddModelError("Invalid time", "The Reservation time is invalid.");
+        }
+        if(ParkingSpot == null)
+        {
+            ModelState.AddModelError("Non-existent spot", "The parking spot not exist.");
         }
         if (!ModelState.IsValid)
         {
@@ -54,7 +58,7 @@ public class ReservationsController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult CancellationOfReservation(int id)
     {
-        Reservation hit =_context.Reservations.Where(r => r.Id == id).FirstOrDefault();
+        var hit =_context.Reservations.Where(r => r.Id == id).FirstOrDefault();
         if(hit != null)
         {
             _context.Reservations.Remove(hit);
