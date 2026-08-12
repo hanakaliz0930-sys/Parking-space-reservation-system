@@ -43,4 +43,22 @@ public class ReservationsController : ControllerBase
     {
         return _context.Reservations.Where(r => r.ParkingSpotId == parkingSpotId).ToList();
     }
+    
+    [HttpDelete("{id}")]
+    public ActionResult CancellationOfReservation(int id)
+    {
+        Reservation hit =_context.Reservations.Where(r => r.Id == id).FirstOrDefault();
+        if(hit != null)
+        {
+            _context.Reservations.Remove(hit);
+            _context.SaveChanges();
+            return NoContent();
+        }
+        else
+        {
+            ModelState.AddModelError("No reservation", "There is no reservation with that id.");
+            return BadRequest(ModelState);
+        }
+        
+    }
 }
