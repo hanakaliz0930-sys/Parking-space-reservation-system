@@ -1,0 +1,10 @@
+[33m4ea4110[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Complete documentation and final changes
+[33m4cca459[m Add time validation
+[33m4b4ead7[m Add test project and initialize parking spot
+[33mfb6cd4d[m Validate parking spot and remove unused context
+[33me40e9d4[m Add reservation time validation
+[33m310cdff[m Add reservation cancellation
+[33mcece5fe[m Add reservation search by parking spot
+[33md72b95d[m Add reservation creation and collision check
+[33m77f24b5[m[33m ([m[1;31morigin/main[m[33m)[m Add parking spots GET endpoint
+[33mfb1eb1e[m Configure SQLite database
